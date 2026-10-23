@@ -1,0 +1,800 @@
+inde.html.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bihar AgroMarket | Agriculture Trading</title>
+  <meta name="description" content="Discover agricultural commodities from Bihar, connect with sellers, and send bulk purchase enquiries.">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --green: #176b3a;
+      --dark: #123d28;
+      --light: #f3f8f1;
+      --orange: #f3a712;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f9f6;
+      color: #243329;
+      line-height: 1.6;
+    }
+
+    header {
+      background: white;
+      padding: 15px 6%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      box-shadow: 0 2px 12px #0000000d;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .logo {
+      color: var(--green);
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    nav {
+      display: flex;
+      gap: 22px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #263b2d;
+      font-weight: 600;
+    }
+
+    nav a:hover {
+      color: var(--green);
+    }
+
+    .btn {
+      background: var(--green);
+      color: white;
+      padding: 11px 18px;
+      border: none;
+      border-radius: 7px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      font-weight: bold;
+    }
+
+    .btn:hover {
+      background: var(--dark);
+    }
+
+    .hero {
+      min-height: 440px;
+      padding: 80px 7%;
+      display: flex;
+      align-items: center;
+      background:
+        linear-gradient(90deg, #103d27f2, #103d2790),
+        url("https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1800&q=85")
+        center/cover;
+      color: white;
+    }
+
+    .hero-content {
+      max-width: 680px;
+    }
+
+    .hero h1 {
+      font-size: clamp(34px, 5vw, 55px);
+      line-height: 1.15;
+      margin: 15px 0;
+    }
+
+    .hero p {
+      font-size: 18px;
+      margin-bottom: 25px;
+    }
+
+    .tag {
+      color: #ffe09a;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      padding: 25px 6%;
+      background: white;
+    }
+
+    .stat {
+      text-align: center;
+      padding: 12px;
+    }
+
+    .stat h2 {
+      color: var(--green);
+      font-size: 27px;
+    }
+
+    section {
+      padding: 55px 6%;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .section-title h2 {
+      color: var(--dark);
+      font-size: 30px;
+    }
+
+    .section-title p {
+      color: #657368;
+      margin-top: 6px;
+    }
+
+    .filters {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 25px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #d5dfd5;
+      border-radius: 7px;
+      font: inherit;
+      background: white;
+    }
+
+    .filters input {
+      flex: 2;
+      min-width: 200px;
+    }
+
+    .filters select {
+      flex: 1;
+      min-width: 160px;
+    }
+
+    .commodity-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .commodity-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 5px 18px #183a2510;
+      border: 1px solid #e7eee5;
+      transition: transform 0.2s;
+    }
+
+    .commodity-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .commodity-card img {
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+      background: #e8efe5;
+    }
+
+    .card-body {
+      padding: 18px;
+    }
+
+    .card-body h3 {
+      font-size: 21px;
+      color: var(--dark);
+    }
+
+    .category {
+      color: #68786b;
+      font-size: 13px;
+    }
+
+    .price {
+      color: var(--green);
+      font-size: 24px;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+
+    .price small {
+      font-size: 13px;
+      color: #68786b;
+      font-weight: normal;
+    }
+
+    .card-body .btn {
+      width: 100%;
+      text-align: center;
+      margin-top: 12px;
+    }
+
+    .empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 35px;
+      background: white;
+      border-radius: 10px;
+    }
+
+    .notice {
+      background: #fff5dc;
+      padding: 12px 15px;
+      border-radius: 7px;
+      color: #654a11;
+      font-size: 14px;
+      margin-top: 20px;
+    }
+
+    .market-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .market-table th,
+    .market-table td {
+      text-align: left;
+      padding: 15px;
+      border-bottom: 1px solid #e7eee5;
+    }
+
+    .market-table th {
+      background: var(--green);
+      color: white;
+    }
+
+    .market-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .districts {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+    }
+
+    .district {
+      padding: 22px 12px;
+      background: white;
+      border: 1px solid #e7eee5;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .district strong {
+      display: block;
+      color: var(--green);
+      font-size: 18px;
+    }
+
+    .enquiry {
+      background: #eaf3e9;
+    }
+
+    .form-wrap {
+      max-width: 650px;
+      margin: auto;
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+    }
+
+    .form-wrap label {
+      display: block;
+      margin: 13px 0 5px;
+      font-weight: 600;
+    }
+
+    .form-wrap .btn {
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    footer {
+      background: #102f20;
+      color: white;
+      padding: 35px 6%;
+      text-align: center;
+    }
+
+    footer p {
+      margin: 7px 0;
+      color: #d5e3d8;
+    }
+
+    @media (max-width: 850px) {
+      header {
+        flex-wrap: wrap;
+      }
+
+      nav {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+      }
+
+      .commodity-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .districts {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 540px) {
+      .commodity-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+
+      .hero {
+        padding: 55px 6%;
+      }
+
+      .market-table th,
+      .market-table td {
+        padding: 10px 7px;
+        font-size: 13px;
+      }
+
+      .logo {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">🌾 Bihar AgroMarket</div>
+
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#commodities">Commodities</a>
+      <a href="#market">Market Rates</a>
+      <a href="#districts">Districts</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <a href="#contact" class="btn">Sell / Buy</a>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <span class="tag">Bihar's Agriculture Marketplace</span>
+        <h1>Connecting Bihar's Farmers to Better Markets</h1>
+        <p>
+          Discover agricultural commodities, connect with bulk buyers,
+          and grow your agriculture business with Bihar AgroMarket.
+        </p>
+        <a href="#commodities" class="btn">Explore Commodities</a>
+        <a href="#contact" class="btn"
+           style="background:#f3a712;color:#183b25;margin-left:8px">
+          Contact Us
+        </a>
+      </div>
+    </section>
+
+    <div class="stats">
+      <div class="stat">
+        <h2>🌾</h2>
+        <p>Agricultural Commodities</p>
+      </div>
+      <div class="stat">
+        <h2>🤝</h2>
+        <p>Buyer & Seller Connections</p>
+      </div>
+      <div class="stat">
+        <h2>📍</h2>
+        <p>Bihar-Focused Marketplace</p>
+      </div>
+    </div>
+
+    <section id="commodities">
+      <div class="section-title">
+        <h2>Explore Agricultural Commodities</h2>
+        <p>Find products for wholesale and bulk trading.</p>
+      </div>
+
+      <div class="filters">
+        <input
+          id="searchInput"
+          type="search"
+          placeholder="Search maize, rice, makhana..."
+          aria-label="Search commodities"
+        >
+
+        <select id="categoryFilter" aria-label="Filter by category">
+          <option value="all">All Categories</option>
+          <option value="Grains">Grains</option>
+          <option value="Pulses">Pulses</option>
+          <option value="Oilseeds">Oilseeds</option>
+          <option value="Specialty">Specialty Products</option>
+        </select>
+      </div>
+
+      <div class="commodity-grid" id="commodityGrid"></div>
+
+      <p class="notice">
+        Important: All prices displayed are illustrative demo prices,
+        not current market quotations. Confirm quality, quantity,
+        location, transport and actual rates with the seller before trading.
+      </p>
+    </section>
+
+    <section id="market" style="background:#edf4eb">
+      <div class="section-title">
+        <h2>Commodity Market Rates</h2>
+        <p>Example price list for demonstration purposes only.</p>
+      </div>
+
+      <div style="overflow-x:auto">
+        <table class="market-table">
+          <thead>
+            <tr>
+              <th>Commodity</th>
+              <th>Category</th>
+              <th>Demo Rate / Quintal</th>
+              <th>Enquiry</th>
+            </tr>
+          </thead>
+          <tbody id="marketBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="districts">
+      <div class="section-title">
+        <h2>Agriculture Across Bihar</h2>
+        <p>Build trading connections across key agricultural districts.</p>
+      </div>
+
+      <div class="districts">
+        <div class="district">
+          <strong>Purnia</strong>
+          <span>Maize & grains</span>
+        </div>
+        <div class="district">
+          <strong>Katihar</strong>
+          <span>Maize & grains</span>
+        </div>
+        <div class="district">
+          <strong>Darbhanga</strong>
+          <span>Rice & makhana</span>
+        </div>
+        <div class="district">
+          <strong>Muzaffarpur</strong>
+          <span>Agri trade</span>
+        </div>
+        <div class="district">
+          <strong>Samastipur</strong>
+          <span>Grains & pulses</span>
+        </div>
+        <div class="district">
+          <strong>Madhepura</strong>
+          <span>Maize & grains</span>
+        </div>
+        <div class="district">
+          <strong>Supaul</strong>
+          <span>Rice & grains</span>
+        </div>
+        <div class="district">
+          <strong>Patna</strong>
+          <span>Wholesale market</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="enquiry">
+      <div class="section-title">
+        <h2>Buyer & Seller Enquiry</h2>
+        <p>Submit your requirements to start a trading conversation.</p>
+      </div>
+
+      <div class="form-wrap">
+        <form id="enquiryForm">
+          <label for="name">Your Name</label>
+          <input id="name" name="name" required
+                 placeholder="Enter your name">
+
+          <label for="phone">Mobile Number</label>
+          <input id="phone" name="phone" type="tel"
+                 pattern="[0-9+\s()-]{10,16}" required
+                 placeholder="Enter your mobile number">
+
+          <label for="role">I want to</label>
+          <select id="role" name="role" required>
+            <option value="">Select your requirement</option>
+            <option value="Buy">Buy commodities</option>
+            <option value="Sell">Sell commodities</option>
+            <option value="Wholesale">Wholesale trading</option>
+          </select>
+
+          <label for="commodity">Commodity</label>
+          <select id="commodity" name="commodity" required>
+            <option value="">Select a commodity</option>
+          </select>
+
+          <label for="quantity">Quantity (quintals)</label>
+          <input id="quantity" name="quantity" type="number"
+                 min="1" step="1" required
+                 placeholder="e.g. 100">
+
+          <label for="district">District in Bihar</label>
+          <input id="district" name="district" required
+                 placeholder="e.g. Purnia, Supaul, Patna">
+
+          <label for="message">Additional Details</label>
+          <textarea id="message" name="message" rows="4"
+                    placeholder="Quality, packaging, delivery requirements..."></textarea>
+
+          <button type="submit" class="btn">Send Enquiry on WhatsApp</button>
+          <p id="formMessage" role="status"
+             style="margin-top:12px;font-size:14px"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <h2>🌾 Bihar AgroMarket</h2>
+    <p>Your partner in agricultural commodity trading.</p>
+    <p>Serving farmers, traders, wholesalers and bulk buyers.</p>
+    <p>© <span id="year"></span> Bihar AgroMarket. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // DEMO DATA ONLY — replace with verified market quotations.
+    const commodities = [
+      {
+        name: "Maize",
+        category: "Grains",
+        price: 2200,
+        unit: "quintal",
+        image: "https://images.unsplash.com/photo-1551754655-cd27e38d2076?auto=format&fit=crop&w=700&q=80",
+        description: "For feed, processing and bulk trading."
+      },
+      {
+        name: "Rice",
+        category: "Grains",
+        price: 3200,
+        unit: "quintal",
+        image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=700&q=80",
+        description: "Rice for wholesale and retail buyers."
+      },
+      {
+        name: "Wheat",
+        category: "Grains",
+        price: 2700,
+        unit: "quintal",
+        image: "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=700&q=80",
+        description: "Grain for flour mills and distributors."
+      },
+      {
+        name: "Makhana",
+        category: "Specialty",
+        price: 18000,
+        unit: "quintal",
+        image: "https://images.unsplash.com/photo-1603905179139-df6d4bfa5f1d?auto=format&fit=crop&w=700&q=80",
+        description: "Fox nuts for food brands and wholesalers."
+      },
+      {
+        name: "Mustard",
+        category: "Oilseeds",
+        price: 6000,
+        unit: "quintal",
+        image: "https://images.unsplash.com/photo-1599940824399-b87987ceb72a?auto=format&fit=crop&w=700&q=80",
+        description: "Oilseed for processors and traders."
+      },
+      {
+        name: "Chana (Gram)",
+        category: "Pulses",
+        price: 5500,
+        unit: "quintal",
+        image: "https://images.unsplash.com/photo-1515543904379-3d757afe72e4?auto=format&fit=crop&w=700&q=80",
+        description: "Pulses for wholesale and food processing."
+      },
+      {
+        name: "Masoor Dal",
+        category: "Pulses",
+        price: 6500,
+        unit: "quintal",
+        image: "https://images.unsplash.com/photo-1515543904379-3d757afe72e4?auto=format&fit=crop&w=700&q=80",
+        description: "Lentils for distributors and retailers."
+      },
+      {
+        name: "Arhar (Tur)",
+        category: "Pulses",
+        price: 8000,
+        unit: "quintal",
+        image: "https://images.unsplash.com/photo-1515543904379-3d757afe72e4?auto=format&fit=crop&w=700&q=80",
+        description: "Pulse crop for wholesale buyers."
+      },
+      {
+        name: "Jute",
+        category: "Specialty",
+        price: 5000,
+        unit: "quintal",
+        image: "https://images.unsplash.com/photo-1516937941344-00b4e0337589?auto=format&fit=crop&w=700&q=80",
+        description: "Natural fibre for commercial buyers."
+      }
+    ];
+
+    const grid = document.getElementById("commodityGrid");
+    const marketBody = document.getElementById("marketBody");
+    const searchInput = document.getElementById("searchInput");
+    const categoryFilter = document.getElementById("categoryFilter");
+    const commoditySelect = document.getElementById("commodity");
+
+    function formatPrice(price) {
+      return "₹" + price.toLocaleString("en-IN");
+    }
+
+    function renderCommodities() {
+      const query = searchInput.value.trim().toLowerCase();
+      const category = categoryFilter.value;
+
+      const filtered = commodities.filter(item => {
+        const matchesText =
+          item.name.toLowerCase().includes(query) ||
+          item.category.toLowerCase().includes(query);
+
+        const matchesCategory =
+          category === "all" || item.category === category;
+
+        return matchesText && matchesCategory;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML =
+          '<div class="empty">No commodities found. Try another search.</div>';
+        return;
+      }
+
+      grid.innerHTML = filtered.map(item => `
+        <article class="commodity-card">
+          <img
+            src="${item.image}"
+            alt="${item.name}"
+            loading="lazy"
+            onerror="this.style.display='none'"
+          >
+          <div class="card-body">
+            <p class="category">${item.category}</p>
+            <h3>${item.name}</h3>
+            <p>${item.description}</p>
+            <div class="price">
+              ${formatPrice(item.price)}
+              <small>/ ${item.unit} (demo)</small>
+            </div>
+            <button class="btn"
+              type="button"
+              data-commodity="${item.name}">
+              Contact Seller
+            </button>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function renderMarketRates() {
+      marketBody.innerHTML = commodities.map(item => `
+        <tr>
+          <td>${item.name}</td>
+          <td>${item.category}</td>
+          <td>${formatPrice(item.price)}</td>
+          <td>
+            <button class="btn"
+              type="button"
+              data-commodity="${item.name}">
+              Enquire
+            </button>
+          </td>
+        </tr>
+      `).join("");
+    }
+
+    function populateCommoditySelect() {
+      commoditySelect.innerHTML =
+        '<option value="">Select a commodity</option>' +
+        commodities.map(item =>
+          `<option value="${item.name}">${item.name}</option>`
+        ).join("");
+    }
+
+    // Clicking a commodity takes the visitor to the enquiry form.
+    document.addEventListener("click", event => {
+      const button = event.target.closest("[data-commodity]");
+      if (!button) return;
+
+      commoditySelect.value = button.dataset.commodity;
+      document.getElementById("contact").scrollIntoView({
+        behavior: "smooth"
+      });
+    });
+
+    searchInput.addEventListener("input", renderCommodities);
+    categoryFilter.addEventListener("change", renderCommodities);
+
+    document.getElementById("enquiryForm").addEventListener("submit", event => {
+      event.preventDefault();
+
+      const form = event.currentTarget;
+      if (!form.reportValidity()) return;
+
+      // IMPORTANT: Replace this placeholder with your business WhatsApp
+      // number in international format, without + or spaces.
+      const BUSINESS_WHATSAPP = "91XXXXXXXXXX";
+
+      if (!/^91\d{10}$/.test(BUSINESS_WHATSAPP)) {
+        document.getElementById("formMessage").textContent =
+          "Website setup required: add your 10-digit business WhatsApp number in the code.";
+        return;
+      }
+
+      const data = new FormData(form);
+
+      const message = [
+        "New Agriculture Commodity Enquiry",
+        "Name: " + data.get("name"),
+        "Phone: " + data.get("phone"),
+        "Requirement: " + data.get("role"),
+        "Commodity: " + data.get("commodity"),
+        "Quantity: " + data.get("quantity") + " quintals",
+        "District: " + data.get("district"),
+        "Details: " + (data.get("message") || "Not provided")
+      ].join("\n");
+
+      const whatsappURL =
+        "https://wa.me/" + BUSINESS_WHATSAPP +
+        "?text=" + encodeURIComponent(message);
+
+      window.open(whatsappURL, "_blank", "noopener,noreferrer");
+    });
+
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+    populateCommoditySelect();
+    renderCommodities();
+    renderMarketRates();
+  </script>
+
+</body>
+</html>
